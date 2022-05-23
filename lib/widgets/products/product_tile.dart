@@ -6,8 +6,13 @@ import 'package:flutter_playground/models/models.dart';
 class ProductTile extends StatelessWidget {
   final Product product;
   final Function onTap;
+  final Function onToggleFavorite;
 
-  ProductTile({required this.product, required this.onTap});
+  ProductTile({
+    required this.product,
+    required this.onTap,
+    required this.onToggleFavorite,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +31,13 @@ class ProductTile extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 5,
-                right: 5,
-                child: Icon(
-                  Icons.favorite,
-                  color: Colors.red,
-                  size: 20,
+                right: 0,
+                child: IconButton(
+                  splashRadius: 10.0,
+                  icon: Icon(Icons.favorite),
+                  onPressed: () => onToggleFavorite(),
+                  color: product.isFavorite ? Colors.red : Colors.grey,
+                  // size: 20,
                 ),
               )
             ],

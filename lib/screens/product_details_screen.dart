@@ -1,6 +1,8 @@
-// ignore_for_file: prefer_const_constructors, deprecated_member_use
+// ignore_for_file: prefer_const_constructors, deprecated_member_use, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:flutter_playground/models/models.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
@@ -8,7 +10,10 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Product product = ModalRoute.of(context)!.settings.arguments as Product;
+    final productId = ModalRoute.of(context)!.settings.arguments as String;
+    final productData = Provider.of<Products>(context);
+    final product = Provider.of<Products>(context).getProductById(productId);
+
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
@@ -35,13 +40,16 @@ class ProductDetailsScreen extends StatelessWidget {
                 Positioned(
                   bottom: 10.0,
                   right: 10.0,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 15,
-                    child: Icon(
-                      Icons.favorite,
-                      color: Colors.red,
-                      size: 20,
+                  child: GestureDetector(
+                    onTap: () => productData.toggleFavorite(productId),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 15,
+                      child: Icon(
+                        Icons.favorite,
+                        color: product.isFavorite ? Colors.red : Colors.grey,
+                        size: 20,
+                      ),
                     ),
                   ),
                 ),

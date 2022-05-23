@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_playground/providers/products.dart';
+import 'package:flutter_playground/models/products.dart';
 import 'package:flutter_playground/screens/screens.dart';
 
 void main() => runApp(const MyApp());

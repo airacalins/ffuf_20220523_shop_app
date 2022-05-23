@@ -7,7 +7,6 @@ import 'package:flutter_playground/data/products_data.dart';
 import 'package:flutter_playground/models/models.dart';
 import 'package:flutter_playground/screens/screens.dart';
 import 'package:flutter_playground/widgets/widgets.dart';
-import 'package:flutter_playground/providers/provider.dart';
 
 class ProductsGrid extends StatelessWidget {
   final List<Product> products = ProductsData().products;
@@ -24,13 +23,20 @@ class ProductsGrid extends StatelessWidget {
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
       ),
-      itemBuilder: (context, index) => ProductTile(
-        product: products[index],
-        onTap: () => Navigator.of(context).pushNamed(
-          ProductDetailsScreen.routeName,
-          arguments: products[index],
-        ),
-      ),
+      itemBuilder: (context, index) {
+        final product = products[index];
+
+        return ProductTile(
+          product: product,
+          onTap: () => Navigator.of(context).pushNamed(
+            ProductDetailsScreen.routeName,
+            arguments: product.id,
+          ),
+          onToggleFavorite: () {
+            Provider.of<Products>(context, listen: false).toggleFavorite(product.id);
+          },
+        );
+      },
       itemCount: products.length,
     );
   }
