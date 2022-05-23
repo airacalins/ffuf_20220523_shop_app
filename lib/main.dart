@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_playground/providers/products.dart';
 import 'package:flutter_playground/screens/screens.dart';
 
 void main() => runApp(const MyApp());
@@ -10,22 +12,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: ProductOverviewScreen(),
-      theme: ThemeData(
-        fontFamily: 'Poppins',
-        appBarTheme: AppBarTheme(
-          backgroundColor: Color(0xff111d13),
-          elevation: 0,
+    return ChangeNotifierProvider(
+      create: (context) => Products(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: ProductOverviewScreen(),
+        theme: ThemeData(
+          fontFamily: 'Poppins',
+          appBarTheme: AppBarTheme(
+            backgroundColor: Color(0xff111d13),
+            elevation: 0,
+          ),
+          scaffoldBackgroundColor: Colors.white,
+          primaryColor: Color(0xff111d13),
+          accentColor: Color(0xffe76f51),
         ),
-        scaffoldBackgroundColor: Colors.white,
-        primaryColor: Color(0xff111d13),
-        accentColor: Colors.blueGrey,
+        routes: {
+          ProductDetailsScreen.routeName: (context) => ProductDetailsScreen(),
+        },
       ),
-      routes: {
-        ProductDetailsScreen.routeName: (context) => ProductDetailsScreen(),
-      },
     );
   }
 }

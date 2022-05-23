@@ -31,6 +31,7 @@ class ProductTile extends StatelessWidget {
                 child: Icon(
                   Icons.favorite,
                   color: Colors.red,
+                  size: 20,
                 ),
               )
             ],

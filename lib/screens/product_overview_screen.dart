@@ -15,7 +15,7 @@ class ProductOverviewScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(5.0),
-        child: ProductList(),
+        child: ProductsGrid(),
       ),
     );
   }
