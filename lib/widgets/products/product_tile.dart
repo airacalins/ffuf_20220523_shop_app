@@ -2,22 +2,20 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_playground/models/models.dart';
+import 'package:flutter_playground/screens/screens.dart';
+import 'package:provider/provider.dart';
 
 class ProductTile extends StatelessWidget {
   final Product product;
-  final Function onTap;
-  final Function onToggleFavorite;
 
-  ProductTile({
-    required this.product,
-    required this.onTap,
-    required this.onToggleFavorite,
-  });
+  ProductTile(this.product);
 
   @override
   Widget build(BuildContext context) {
+    final cartData = Provider.of<Cart>(context, listen: false);
+
     return GestureDetector(
-      onTap: () => onTap(),
+      onTap: () => Navigator.of(context).pushNamed(ProductDetailsScreen.routeName, arguments: product.id),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(5),
         child: GridTile(
@@ -35,9 +33,8 @@ class ProductTile extends StatelessWidget {
                 child: IconButton(
                   splashRadius: 10.0,
                   icon: Icon(Icons.favorite),
-                  onPressed: () => onToggleFavorite(),
+                  onPressed: () => Provider.of<Products>(context, listen: false).toggleFavorite(product.id),
                   color: product.isFavorite ? Colors.red : Colors.grey,
-                  // size: 20,
                 ),
               )
             ],
@@ -64,10 +61,13 @@ class ProductTile extends StatelessWidget {
                     ],
                   ),
                 ),
-                Icon(
-                  Icons.add,
-                  color: Colors.white,
-                  size: 18,
+                GestureDetector(
+                  onTap: () => cartData.addToCart(product.id, product.price, product.title),
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                    size: 18,
+                  ),
                 ),
               ],
             ),

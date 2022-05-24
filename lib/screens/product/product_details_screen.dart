@@ -73,7 +73,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   '\$ ${product.price}',
                   style: textTheme.caption,
                 ),
-                Container(
+                SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(primary: Theme.of(context).accentColor),

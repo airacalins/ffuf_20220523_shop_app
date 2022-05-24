@@ -7,13 +7,11 @@ import 'package:flutter_playground/models/models.dart';
 
 class Products with ChangeNotifier {
   final List<Product> _products = ProductsData().products;
+  var showFavoriteProducts = false;
 
   UnmodifiableListView<Product> get products => UnmodifiableListView(_products);
+  UnmodifiableListView<Product> get favoriteProducts => UnmodifiableListView(_products.where((p) => p.isFavorite));
   int get productsCount => _products.length;
-  // void addProduct() {
-  //   _products.add(value);
-  //   notifyListeners();
-  // }
 
   Product getProductById(String id) {
     return _products.firstWhere((p) => p.id == id);

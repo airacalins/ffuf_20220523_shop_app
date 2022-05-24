@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
@@ -9,11 +10,15 @@ import 'package:flutter_playground/screens/screens.dart';
 import 'package:flutter_playground/widgets/widgets.dart';
 
 class ProductsGrid extends StatelessWidget {
+  final bool showFavoriteProducts;
+  ProductsGrid(this.showFavoriteProducts);
+
   final List<Product> products = ProductsData().products;
 
   @override
   Widget build(BuildContext context) {
-    final products = Provider.of<Products>(context).products;
+    final productData = Provider.of<Products>(context);
+    final products = showFavoriteProducts ? productData.favoriteProducts : productData.products;
 
     return GridView.builder(
       padding: const EdgeInsets.all(10.0),
@@ -25,17 +30,7 @@ class ProductsGrid extends StatelessWidget {
       ),
       itemBuilder: (context, index) {
         final product = products[index];
-
-        return ProductTile(
-          product: product,
-          onTap: () => Navigator.of(context).pushNamed(
-            ProductDetailsScreen.routeName,
-            arguments: product.id,
-          ),
-          onToggleFavorite: () {
-            Provider.of<Products>(context, listen: false).toggleFavorite(product.id);
-          },
-        );
+        return ProductTile(product);
       },
       itemCount: products.length,
     );
