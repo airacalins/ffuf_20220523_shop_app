@@ -16,10 +16,40 @@ class CartTile extends StatelessWidget {
     final cartData = Provider.of<Cart>(context);
     final textTheme = Theme.of(context).textTheme;
 
-    return Column(
-      children: [
-        ListTile(
+    void deleteItem(String productId) {
+      cartData.removeItem(productId);
+      ScaffoldMessenger.of(context)
+        ..removeCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            content: Text(
+              '${product.title} removed!',
+            ),
+            duration: Duration(seconds: 1),
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
+        );
+    }
+
+    return Dismissible(
+      onDismissed: (direction) => deleteItem(product.id),
+      direction: DismissDirection.endToStart,
+      background: Container(
+        color: Colors.red,
+        // ignore: sort_child_properties_last
+        child: const Icon(
+          Icons.delete,
+          color: Colors.white,
+        ),
+        alignment: Alignment.centerRight,
+        padding: const EdgeInsets.only(right: 20),
+      ),
+      key: ValueKey(product.id),
+      child: Container(
+        margin: const EdgeInsets.only(top: 5.0),
+        child: ListTile(
           leading: Container(
+            width: 48,
             color: Colors.red,
             child: Image.network(
               product.imageUrl,
@@ -71,8 +101,7 @@ class CartTile extends StatelessWidget {
             ),
           ),
         ),
-        const Divider()
-      ],
+      ),
     );
   }
 }

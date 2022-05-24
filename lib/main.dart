@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:flutter_playground/screens/cart/cart_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter_playground/models/models.dart';
@@ -29,6 +28,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => Products()),
         ChangeNotifierProvider(create: (context) => Cart()),
+        ChangeNotifierProvider(create: (context) => Orders()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

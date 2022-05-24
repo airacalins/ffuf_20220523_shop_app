@@ -11,7 +11,28 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartData = Provider.of<Cart>(context);
+    final orderData = Provider.of<Orders>(context);
     final textTheme = Theme.of(context).textTheme;
+
+    void handleCheckout() {
+      orderData.addOrder(
+        cartData.cartItems.values.toList(),
+        cartData.totalAmount,
+      );
+      cartData.clear();
+
+      ScaffoldMessenger.of(context)
+        ..removeCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            content: const Text(
+              'Checkout Success!',
+            ),
+            duration: Duration(seconds: 1),
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
+        );
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -21,7 +42,18 @@ class CartScreen extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: CartList(),
+            child: cartData.cartItems.isEmpty
+                ? Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: Center(
+                      child: Text(
+                        'Empty Cart',
+                        style: textTheme.headline3,
+                      ),
+                    ),
+                  )
+                : CartList(),
           ),
           Column(
             children: [
@@ -32,7 +64,7 @@ class CartScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '${cartData.itemCount} ${cartData.itemCount == 1 ? 'item' : 'items'}',
+                      '${cartData.itemCount} ${cartData.itemCount <= 1 ? 'item' : 'items'}',
                       style: textTheme.caption,
                     ),
                     Row(
@@ -60,7 +92,7 @@ class CartScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Theme.of(context).accentColor),
-                  onPressed: () {},
+                  onPressed: handleCheckout,
                   child: const Text(
                     'Checkout',
                   ),

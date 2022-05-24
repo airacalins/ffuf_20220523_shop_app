@@ -9,7 +9,7 @@ class Products with ChangeNotifier {
   final List<Product> _products = ProductsData().products;
   var showFavoriteProducts = false;
 
-  UnmodifiableListView<Product> get products => UnmodifiableListView(_products);
+  UnmodifiableListView<Product> get products => UnmodifiableListView([..._products]);
   UnmodifiableListView<Product> get favoriteProducts => UnmodifiableListView(_products.where((p) => p.isFavorite));
   int get productsCount => _products.length;
 
