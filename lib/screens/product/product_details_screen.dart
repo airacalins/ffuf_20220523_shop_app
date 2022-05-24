@@ -13,8 +13,24 @@ class ProductDetailsScreen extends StatelessWidget {
     final productId = ModalRoute.of(context)!.settings.arguments as String;
     final productData = Provider.of<Products>(context);
     final product = Provider.of<Products>(context).getProductById(productId);
+    final cartData = Provider.of<Cart>(context, listen: false);
 
     TextTheme textTheme = Theme.of(context).textTheme;
+
+    void handleAddToCart() {
+      cartData.addToCart(product.id, product.price, product.title);
+      ScaffoldMessenger.of(context)
+        ..removeCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            content: Text(
+              'Added to cart!',
+            ),
+            duration: Duration(seconds: 1),
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
+        );
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -77,7 +93,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(primary: Theme.of(context).accentColor),
-                    onPressed: () {},
+                    onPressed: handleAddToCart,
                     child: Text(
                       'Add to Bag',
                     ),

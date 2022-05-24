@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_playground/screens/screens.dart';
 import 'package:flutter_playground/widgets/badge/badge.dart';
 import 'package:flutter_playground/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +35,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
             builder: (context, cartData, child) => Badge(
               value: cartData.itemCount.toString(),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () => Navigator.of(context).pushNamed(CartScreen.routeName),
                 icon: Icon(Icons.shopping_bag),
               ),
             ),

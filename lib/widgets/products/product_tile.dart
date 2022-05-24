@@ -14,6 +14,21 @@ class ProductTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartData = Provider.of<Cart>(context, listen: false);
 
+    void handleAddToCart() {
+      cartData.addToCart(product.id, product.price, product.title);
+      ScaffoldMessenger.of(context)
+        ..removeCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            content: Text(
+              'Added to cart!',
+            ),
+            duration: Duration(seconds: 1),
+            backgroundColor: Theme.of(context).accentColor,
+          ),
+        );
+    }
+
     return GestureDetector(
       onTap: () => Navigator.of(context).pushNamed(ProductDetailsScreen.routeName, arguments: product.id),
       child: ClipRRect(
@@ -52,17 +67,25 @@ class ProductTile extends StatelessWidget {
                       Text(
                         product.title,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                       Text(
                         "\$ ${product.price.toStringAsFixed(2)}",
-                        style: TextStyle(color: Colors.grey, fontSize: 11, fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w500,
+                        ),
                       )
                     ],
                   ),
                 ),
                 GestureDetector(
-                  onTap: () => cartData.addToCart(product.id, product.price, product.title),
+                  onTap: handleAddToCart,
                   child: Icon(
                     Icons.add,
                     color: Colors.white,
