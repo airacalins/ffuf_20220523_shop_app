@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_playground/screens/order/orders_screen.dart';
 import 'package:flutter_playground/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -32,6 +33,8 @@ class CartScreen extends StatelessWidget {
             backgroundColor: Theme.of(context).primaryColor,
           ),
         );
+
+      Navigator.of(context).pushReplacementNamed(OrdersScreen.routeName);
     }
 
     return Scaffold(

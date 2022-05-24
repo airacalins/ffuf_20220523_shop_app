@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_playground/models/models.dart';
 import 'package:provider/provider.dart';
+
+import 'package:flutter_playground/models/models.dart';
+import 'package:flutter_playground/widgets/widgets.dart';
 
 class OrderList extends StatelessWidget {
   const OrderList({
@@ -13,23 +15,7 @@ class OrderList extends StatelessWidget {
 
     return ListView.builder(
       itemBuilder: (context, index) => OrderItem(orderData.orders[index]),
-      itemCount: orderData.orders.length
+      itemCount: orderData.orders.length,
     );
   }
-// }
-
-//     return GridView.builder(
-//       padding: const EdgeInsets.all(10.0),
-//       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-//         crossAxisCount: 2,
-//         childAspectRatio: 5 / 6,
-//         crossAxisSpacing: 10,
-//         mainAxisSpacing: 10,
-//       ),
-//       itemBuilder: (context, index) {
-//         final product = products[index];
-//         return ProductTile(product);
-//       },
-//       itemCount: products.length,
-//     );
-//   }
+}

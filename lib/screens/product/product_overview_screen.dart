@@ -26,6 +26,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
+      drawer: AppDrawer(),
       appBar: AppBar(
         title: Text(
           'ShopLeaf',
