@@ -1,12 +1,12 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, constant_identifier_names
+// ignore_for_file: use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter_playground/screens/screens.dart';
-import 'package:flutter_playground/widgets/badge/badge.dart';
-import 'package:flutter_playground/widgets/widgets.dart';
+import 'package:flutter_playground/providers/export_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/models.dart';
+import 'package:flutter_playground/models/export_models.dart';
+import 'package:flutter_playground/screens/export_screens.dart';
+import 'package:flutter_playground/widgets/export_widgets.dart';
 
 enum FilterOptions {
   All,
@@ -26,18 +26,18 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'ShopLeaf',
         ),
         actions: [
           Consumer<Cart>(
             builder: (context, cartData, child) => Badge(
-              value: cartData.itemCount.toString(),
+              value: cartData.toString(),
               child: IconButton(
                 onPressed: () => Navigator.of(context).pushNamed(CartScreen.routeName),
-                icon: Icon(Icons.shopping_bag),
+                icon: const Icon(Icons.shopping_bag),
               ),
             ),
           ),
@@ -51,7 +51,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                 }
               });
             },
-            icon: Icon(Icons.more_vert),
+            icon: const Icon(Icons.more_vert),
             itemBuilder: (context) => [
               PopupMenuItem(
                 value: FilterOptions.All,
@@ -73,7 +73,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(5.0),
-        child: ProductsGrid(_showFavoriteProducts),
+        child: ProductList(_showFavoriteProducts),
       ),
     );
   }

@@ -1,11 +1,9 @@
 // ignore_for_file: prefer_const_constructors, deprecated_member_use
-
 import 'package:flutter/material.dart';
-import 'package:flutter_playground/screens/order/orders_screen.dart';
 import 'package:provider/provider.dart';
 
-import 'package:flutter_playground/models/models.dart';
-import 'package:flutter_playground/screens/screens.dart';
+import 'package:flutter_playground/providers/export_provider.dart';
+import 'package:flutter_playground/screens/export_screens.dart';
 
 void main() => runApp(const MyApp());
 
@@ -27,9 +25,9 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => Products()),
-        ChangeNotifierProvider(create: (context) => Cart()),
-        ChangeNotifierProvider(create: (context) => Orders()),
+        ChangeNotifierProvider(create: (context) => ProductProvider()),
+        ChangeNotifierProvider(create: (context) => CartProvider()),
+        ChangeNotifierProvider(create: (context) => OrderProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_playground/models/models.dart';
-
-import 'package:flutter_playground/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+
+import 'package:flutter_playground/providers/export_provider.dart';
+import 'package:flutter_playground/widgets/export_widgets.dart';
 
 class OrdersScreen extends StatelessWidget {
   static const routeName = '/orders';
 
   @override
   Widget build(BuildContext context) {
-    final orderData = Provider.of<Orders>(context);
+    final orderData = Provider.of<OrderProvider>(context);
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(

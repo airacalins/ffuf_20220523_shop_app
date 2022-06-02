@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:flutter_playground/models/models.dart';
+import 'package:flutter_playground/models/export_models.dart';
 
 class ProductsData {
   final List<Product> _products = [

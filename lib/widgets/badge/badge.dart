@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+// ignore_for_file: use_key_in_widget_constructors, deprecated_member_use
 
 import 'package:flutter/material.dart';
 
@@ -24,10 +24,9 @@ class Badge extends StatelessWidget {
           top: 8,
           child: Container(
             padding: const EdgeInsets.all(2.0),
-            // color: Theme.of(context).accentColor,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
-              color: color != null ? color : Theme.of(context).accentColor,
+              color: color,
             ),
             constraints: const BoxConstraints(
               minWidth: 16,

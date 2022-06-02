@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_playground/screens/order/orders_screen.dart';
-import 'package:flutter_playground/widgets/widgets.dart';
+import 'package:flutter_playground/widgets/export_widgets.dart';
 import 'package:provider/provider.dart';
 
-import 'package:flutter_playground/models/models.dart';
+import 'package:flutter_playground/providers/export_provider.dart';
+import 'package:flutter_playground/screens/order/orders_screen.dart';
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/cart';
@@ -11,13 +11,14 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cartData = Provider.of<Cart>(context);
-    final orderData = Provider.of<Orders>(context);
+    final cartData = Provider.of<CartProvider>(context);
+    final carts = cartData.carts;
+    final orderData = Provider.of<OrderProvider>(context);
     final textTheme = Theme.of(context).textTheme;
 
     void handleCheckout() {
       orderData.addOrder(
-        cartData.cartItems.values.toList(),
+        carts.values.toList(),
         cartData.totalAmount,
       );
       cartData.clear();
@@ -29,11 +30,10 @@ class CartScreen extends StatelessWidget {
             content: const Text(
               'Checkout Success!',
             ),
-            duration: Duration(seconds: 1),
+            duration: const Duration(seconds: 1),
             backgroundColor: Theme.of(context).primaryColor,
           ),
         );
-
       Navigator.of(context).pushReplacementNamed(OrdersScreen.routeName);
     }
 
@@ -45,8 +45,8 @@ class CartScreen extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: cartData.cartItems.isEmpty
-                ? Container(
+            child: carts.isEmpty
+                ? SizedBox(
                     width: double.infinity,
                     height: double.infinity,
                     child: Center(
@@ -71,7 +71,6 @@ class CartScreen extends StatelessWidget {
                       style: textTheme.caption,
                     ),
                     Row(
-                      // ignore: prefer_const_literals_to_create_immutables
                       children: [
                         Container(
                           padding: const EdgeInsets.only(right: 10.0),

@@ -2,22 +2,19 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_playground/widgets/export_widgets.dart';
 import 'package:provider/provider.dart';
 
-import 'package:flutter_playground/data/products_data.dart';
-import 'package:flutter_playground/models/models.dart';
-import 'package:flutter_playground/screens/screens.dart';
-import 'package:flutter_playground/widgets/widgets.dart';
+import 'package:flutter_playground/providers/export_provider.dart';
 
-class ProductsGrid extends StatelessWidget {
+class ProductList extends StatelessWidget {
   final bool showFavoriteProducts;
-  ProductsGrid(this.showFavoriteProducts);
 
-  final List<Product> products = ProductsData().products;
+  const ProductList(this.showFavoriteProducts);
 
   @override
   Widget build(BuildContext context) {
-    final productData = Provider.of<Products>(context);
+    final productData = Provider.of<ProductProvider>(context);
     final products = showFavoriteProducts ? productData.favoriteProducts : productData.products;
 
     return GridView.builder(
@@ -30,7 +27,7 @@ class ProductsGrid extends StatelessWidget {
       ),
       itemBuilder: (context, index) {
         final product = products[index];
-        return ProductTile(product);
+        return ProductItem(product);
       },
       itemCount: products.length,
     );

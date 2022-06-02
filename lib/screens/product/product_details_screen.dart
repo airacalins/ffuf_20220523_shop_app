@@ -1,9 +1,8 @@
-// ignore_for_file: prefer_const_constructors, deprecated_member_use, use_key_in_widget_constructors
-
+// ignore_for_file: use_key_in_widget_constructors
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:flutter_playground/models/models.dart';
+import 'package:flutter_playground/providers/export_provider.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   static const String routeName = '/product-details';
@@ -11,9 +10,9 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productId = ModalRoute.of(context)!.settings.arguments as String;
-    final productData = Provider.of<Products>(context);
-    final product = Provider.of<Products>(context).getProductById(productId);
-    final cartData = Provider.of<Cart>(context, listen: false);
+    final productData = Provider.of<ProductProvider>(context);
+    final product = productData.getProductById(productId);
+    final cartData = Provider.of<CartProvider>(context, listen: false);
 
     TextTheme textTheme = Theme.of(context).textTheme;
 
@@ -23,10 +22,10 @@ class ProductDetailsScreen extends StatelessWidget {
         ..removeCurrentSnackBar()
         ..showSnackBar(
           SnackBar(
-            content: Text(
+            content: const Text(
               'Added to cart!',
             ),
-            duration: Duration(seconds: 1),
+            duration: const Duration(seconds: 1),
             backgroundColor: Theme.of(context).primaryColor,
           ),
         );
@@ -45,7 +44,7 @@ class ProductDetailsScreen extends StatelessWidget {
           Expanded(
             child: Stack(
               children: [
-                Container(
+                SizedBox(
                   width: double.infinity,
                   height: double.infinity,
                   child: Image.network(
@@ -73,7 +72,7 @@ class ProductDetailsScreen extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -94,7 +93,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(primary: Theme.of(context).accentColor),
                     onPressed: handleAddToCart,
-                    child: Text(
+                    child: const Text(
                       'Add to Bag',
                     ),
                   ),
